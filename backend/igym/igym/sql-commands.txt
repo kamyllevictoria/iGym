@@ -1,0 +1,91 @@
+-- Função para gerar senha aleatória
+create or replace function gerar_senha()
+returns varchar as $$
+select substring(md5(random()::text || clock_timestamp()::text) for 10);
+$$ language sql;
+
+-- Função para gerar matrícula aleatória (até 10 dígitos)
+create or replace function gerar_matricula()
+returns bigint as $$
+begin
+	return floor(random() * 10000000000)::bigint;
+end;
+$$ language plpgsql;
+
+-- Tabela de usuários
+create table usuario(
+	id serial primary key,
+	nome varchar(255) not null,
+	senha varchar(10) default gerar_senha(),
+	email varchar(255) unique not null,
+	telefone varchar(11) not null,
+	sexo varchar(20) not null,
+	dataNascimento date not null,
+	cpf varchar(15) not null,
+	rg varchar(8) not null,
+	idade int not null
+);
+
+-- Tabela de professores
+create table professor(
+	cref varchar(7) primary key not null,
+	usuarioId int not null,
+	senha varchar(10) default gerar_senha(),
+	foreign key (usuarioId) references usuario(id)
+		on delete cascade
+		on update cascade
+);
+
+-- Tabela de alunos
+create table aluno(
+	matricula bigint default gerar_matricula() primary key,
+	usuarioId int not null,
+	peso numeric(5,2) not null,
+	altura numeric(3,2),
+	medicamentos varchar(200),
+	cirurgias varchar(200),
+	metodoPagamento varchar(50) not null,
+	tipoArterial varchar(3) not null,
+	historicoDeSaude varchar(255) not null,
+	constraint chk_metodoPagamento check(metodoPagamento in ('CREDITO','DEBITO','PIX','DINHEIRO')),
+	foreign key (usuarioId) references usuario(id)
+		on delete cascade
+		on update cascade
+);
+
+-- Tabela de fichas de treino
+create table fichaDeTreino(
+	id serial primary key,
+	crefProfessor varchar(7) not null,
+	matriculaAluno bigint not null,
+	dataCriacao date not null,
+	frequenciaSemanal int not null,
+	foreign key (crefProfessor) references professor(cref)
+		on delete cascade
+		on update cascade,
+	foreign key (matriculaAluno) references aluno(matricula)
+		on delete cascade
+		on update cascade
+);
+
+-- Tabela de exercícios
+create table exercicios(
+	id serial primary key,
+	fichaDeTreinoId int not null,
+	nome varchar(100) not null,
+	agrupamentoMuscular varchar(50),
+	series int not null,
+	repeticoes int not null,
+	tempoDeDescanso numeric(3,2),
+	foreign key (fichaDeTreinoId) references fichaDeTreino(id)
+		on delete cascade
+		on update cascade
+);
+
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+AND table_type = 'BASE TABLE'
+ORDER BY table_name;
+
