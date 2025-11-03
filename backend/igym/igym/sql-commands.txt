@@ -12,31 +12,28 @@ begin
 end;
 $$ language plpgsql;
 
--- Tabela de usuários
 create table usuario(
-	id serial primary key,
-	nome varchar(255) not null,
-	senha varchar(10) default gerar_senha(),
-	email varchar(255) unique not null,
-	telefone varchar(11) not null,
-	sexo varchar(20) not null,
-	dataNascimento date not null,
-	cpf varchar(15) not null,
-	rg varchar(8) not null,
-	idade int not null
+    id serial primary key,
+    nome varchar(255) not null,
+    -- A senha DEVE ser maior que 10 para armazenar hashs (ex: bcrypt/sha256)
+    senha varchar(255) not null,
+    email varchar(255) unique not null,
+    telefone varchar(11) not null,
+    sexo varchar(20) not null,
+    dataNascimento date not null,
+    cpf varchar(15) unique not null,
+    idade int not null
 );
 
--- Tabela de professores
+
 create table professor(
 	cref varchar(7) primary key not null,
 	usuarioId int not null,
-	senha varchar(10) default gerar_senha(),
 	foreign key (usuarioId) references usuario(id)
 		on delete cascade
 		on update cascade
 );
 
--- Tabela de alunos
 create table aluno(
 	matricula bigint default gerar_matricula() primary key,
 	usuarioId int not null,
@@ -53,7 +50,6 @@ create table aluno(
 		on update cascade
 );
 
--- Tabela de fichas de treino
 create table fichaDeTreino(
 	id serial primary key,
 	crefProfessor varchar(7) not null,
@@ -68,7 +64,6 @@ create table fichaDeTreino(
 		on update cascade
 );
 
--- Tabela de exercícios
 create table exercicios(
 	id serial primary key,
 	fichaDeTreinoId int not null,

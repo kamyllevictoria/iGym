@@ -10,4 +10,5 @@ public class IgymApplication {
 		SpringApplication.run(IgymApplication.class, args);
 	}
 
+
 }
