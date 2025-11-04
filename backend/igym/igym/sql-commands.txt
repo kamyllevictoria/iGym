@@ -1,54 +1,38 @@
--- Função para gerar senha aleatória
-create or replace function gerar_senha()
-returns varchar as $$
-select substring(md5(random()::text || clock_timestamp()::text) for 10);
-$$ language sql;
 
--- Função para gerar matrícula aleatória (até 10 dígitos)
-create or replace function gerar_matricula()
-returns bigint as $$
-begin
-	return floor(random() * 10000000000)::bigint;
-end;
-$$ language plpgsql;
-
-create table usuario(
-    id serial primary key,
-    nome varchar(255) not null,
-    -- A senha DEVE ser maior que 10 para armazenar hashs (ex: bcrypt/sha256)
-    senha varchar(255) not null,
-    email varchar(255) unique not null,
-    telefone varchar(11) not null,
-    sexo varchar(20) not null,
-    dataNascimento date not null,
-    cpf varchar(15) unique not null,
-    idade int not null
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(200) NOT NULL UNIQUE,
+    senha VARCHAR(10) NOT NULL,
+    telefone VARCHAR(11) NOT NULL,
+    sexo VARCHAR(10) NOT NULL,
+    dataNascimento DATE NOT NULL,
+    cpf VARCHAR(15) NOT NULL UNIQUE,
+    idade INT NOT NULL
 );
 
 
-create table professor(
-	cref varchar(7) primary key not null,
-	usuarioId int not null,
-	foreign key (usuarioId) references usuario(id)
-		on delete cascade
-		on update cascade
+CREATE TABLE aluno (
+    matricula BIGINT PRIMARY KEY DEFAULT floor(random() * 10000000000)::bigint,
+    usuario_id INT NOT NULL UNIQUE,
+    altura NUMERIC(5,2) NOT NULL,
+    peso NUMERIC(5,2) NOT NULL,
+    medicamentos VARCHAR(200),
+    cirurgias VARCHAR(200),
+    metodo_pagamento VARCHAR(50) NOT NULL CHECK (metodo_pagamento IN ('CREDITO','DEBITO','PIX','DINHEIRO')),
+    pressao_arterial VARCHAR(3) NOT NULL,
+    historico_de_saude VARCHAR(255) NOT NULL,
+    ativo BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
+
 );
 
-create table aluno(
-	matricula bigint default gerar_matricula() primary key,
-	usuarioId int not null,
-	peso numeric(5,2) not null,
-	altura numeric(3,2),
-	medicamentos varchar(200),
-	cirurgias varchar(200),
-	metodoPagamento varchar(50) not null,
-	tipoArterial varchar(3) not null,
-	historicoDeSaude varchar(255) not null,
-	constraint chk_metodoPagamento check(metodoPagamento in ('CREDITO','DEBITO','PIX','DINHEIRO')),
-	foreign key (usuarioId) references usuario(id)
-		on delete cascade
-		on update cascade
+CREATE TABLE professor (
+    cref VARCHAR(7) PRIMARY KEY,
+    usuario_id INT NOT NULL UNIQUE,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
+
 
 create table fichaDeTreino(
 	id serial primary key,
@@ -84,3 +68,24 @@ WHERE table_schema = 'public'
 AND table_type = 'BASE TABLE'
 ORDER BY table_name;
 
+
+--join professor e usuario
+SELECT
+    *
+FROM professor P
+INNER JOIN usuario U
+ON P.usuarioid = U.id;
+
+--join aluno e usuario
+SELECT
+    *
+FROM aluno A
+INNER JOIN usuario U
+ON A.usuarioid = U.id;
+
+
+select * from aluno;
+select * from exercicios;
+select * from fichadetreino;
+select * from professor;
+select * from usuario;

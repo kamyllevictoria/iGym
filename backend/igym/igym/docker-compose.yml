@@ -12,6 +12,8 @@ services:
       - "5433:5432"
     networks:
       - igym-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -28,3 +30,8 @@ services:
 networks:
   igym-network:
     driver: bridge
+
+
+volumes:
+  pgdata:
+    name: igym_pgdata

@@ -1,10 +1,10 @@
-import com.igym.igym.model.Aluno;
+import com.igym.igym.model.Student;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Test {
     public static void main(String[] args) {
-        Aluno student = new Aluno();
+        Student student = new Student();
 
         student.generateRegistrationNumber();
 

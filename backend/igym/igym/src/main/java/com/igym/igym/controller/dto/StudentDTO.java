@@ -4,12 +4,12 @@ import com.igym.igym.model.Payment;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
-public record AlunoDTO(
-        @NotNull
-        @NotBlank(message = "Required field.")
-        String registrationNumber,
 
+public record StudentDTO(
         @NotNull
         Double height,
 
@@ -32,9 +32,12 @@ public record AlunoDTO(
         String healthHistory,
 
         @NotBlank(message = "Required field.")
-        @Size(max = 3, message = "Maximum of 3 characters.")
+        @Size(max = 10, message = "Maximum of 3 characters.")
         String bloodPressure,
 
         @NotNull(message = "Required field.")
-        UsuarioDTO usuarioDTO
-) {}
+        UserDTO userDTO
+) {
+
+}
+

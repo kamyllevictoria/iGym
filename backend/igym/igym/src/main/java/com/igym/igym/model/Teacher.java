@@ -8,7 +8,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class Professor extends Usuario {
+@Table(name = "professor")
+public class Teacher extends User {
     @Id
     @Column(name = "cref", nullable = false, unique = true, length = 7)
     private String cref;
