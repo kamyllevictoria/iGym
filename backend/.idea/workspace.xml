@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f93356fe-036b-4a57-80cf-3d3b1866b838" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/sql-commands.txt" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/sql-commands.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/IgymApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/IgymApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/features/alunos/model/Aluno.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controller/mapper/StudentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controller/mapper/StudentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controller/mapper/TeacherMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controller/mapper/TeacherMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repository/StudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/service/StudentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,10 +24,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
         <option value="Record" />
         <option value="package-info" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -51,7 +56,7 @@
     &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sharm/igym-system/backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/igym-system/backend&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -81,16 +86,5 @@
       <updated>1761398147010</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/igym/igym/src/main/java/Test.java</url>
-          <line>3</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

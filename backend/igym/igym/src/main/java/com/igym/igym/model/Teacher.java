@@ -13,4 +13,12 @@ public class Teacher extends User {
     @Id
     @Column(name = "cref", nullable = false, unique = true, length = 7)
     private String cref;
+
+    public String getCref() {
+        return cref;
+    }
+
+    public void setCref(String cref) {
+        this.cref = cref;
+    }
 }

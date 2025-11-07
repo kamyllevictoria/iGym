@@ -1,16 +1,17 @@
 package com.igym.igym.service;
 
-import com.igym.igym.controller.dto.StudentDTO;
 import com.igym.igym.controller.mapper.StudentMapper;
 import com.igym.igym.model.Student;
 import com.igym.igym.repository.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PrePersist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class StudentService {
@@ -26,8 +27,7 @@ public class StudentService {
 
     //criar aluno
     @Transactional
-    public Student createStudent(StudentDTO studentDTO){
-        Student student = studentMapper.toEntity(studentDTO);
+    public Student saveStudent(Student student){
         if(studentRepository.findByCpf(student.getCPF()).isPresent()){
             throw  new IllegalArgumentException("Cpf já cadastrado.");
         }
@@ -35,39 +35,47 @@ public class StudentService {
             throw new IllegalArgumentException("Matricula já existente");
         }
 
-        Student savedStudent = studentRepository.save(student);
-        return studentMapper.toDTO(savedStudent);
+        student.setRegistrationNumber(generateRandomRegistration());
+
+        return studentRepository.save(student);
     }
 
+    private String generateRandomRegistration() {
+        String registration;
+        do{
+            Random random = new Random();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                sb.append(random.nextInt(10));
+            }
+            registration = sb.toString();
+        } while(studentRepository.findByRegistrationNumber(registration).isPresent());
+        return registration;
+    }
 
     //pesquisar todos os alunos
     @Transactional(readOnly = true)
-    public List<StudentDTO> findAllStudent(){
-        List<Student> students = studentRepository.findAll();
-        return studentMapper.toDTO(students);
+    public List<Student> findAllStudents(){
+        return studentRepository.findAll();
     }
 
-    //pesquisar todos os dados de um aluno via matricula ou cpf
+    //pesquisar todos os dados de um aluno específico via matricula ou cpf
     @Transactional(readOnly = true)
     public Student findStudentDetails(String cpf, String registrationNumber){
-        Student student = studentRepository.findByCpfOrRegistrationNumber(cpf, registrationNumber)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("No student found with CPF '%s' or registration number '%s'. ", cpf, registrationNumber)));
-
-        return studentMapper.toDTO(student);
+        return studentRepository.findByCpfOrRegistrationNumber(cpf, registrationNumber)
+                .orElseThrow( () -> new EntityNotFoundException(String.format("No student found with CPF '%s' or register number '%s'. ", cpf, registrationNumber)));
     }
 
 
-    //pesquisar por cpf ou numero de matricula
+    //pesquisar aluno por cpf ou numero de matricula
     @Transactional(readOnly = true)
     public Student findByCpfOrRegistrationNumber(String cpf, String registrationNumber) {
         if(cpf == null && registrationNumber == null){
             throw new IllegalArgumentException("You must provide either CPF or registration number to search.");
         }
-        Student studentCpfOrRegistrationNumber = studentRepository.findByCpfOrRegistrationNumber(cpf, registrationNumber)
-                .orElseThrow(()-> new EntityNotFoundException(String.format("No student found with CPF '%s' or registration number '%s'.", cpf, registrationNumber)));
 
-
-        return studentMapper.toDTO((Student) null);
+        return studentRepository.findByCpfOrRegistrationNumber(cpf, registrationNumber)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("No student found with CPF '%s' or register number '%s'. ", cpf, registrationNumber)));
     }
 
     //atualizar por cpf ou numero de matricula
@@ -104,12 +112,12 @@ public class StudentService {
             throw new IllegalArgumentException("You must provide either cpf or registration number to delete a student.");
         }
 
-        Optional<Student> deletedStudent = studentRepository.findByCpfOrRegistrationNumber(cpf, registrationNumber);
-        if(deletedStudent.isEmpty()){
-            throw new EntityNotFoundException(String.format("No student found with cpf '%s' or registration number '%s'. ", cpf, registrationNumber));
-        }
-
+        Student deletedStudent = studentRepository.findByCpfOrRegistrationNumber(cpf, registrationNumber)
+                .orElseThrow( () -> new EntityNotFoundException(
+                        String.format("No student found with cpf '%s' or registration number '%s'. ", cpf, registrationNumber)
+                ));
         studentRepository.delete(deletedStudent);
+
     }
 }
 

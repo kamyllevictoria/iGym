@@ -8,8 +8,7 @@ import lombok.Setter;
 
 import java.util.Random;
 
-@Setter
-@Getter
+
 @Entity
 @Table(name = "aluno")
 public class Student extends User {
@@ -39,20 +38,68 @@ public class Student extends User {
     @Column(name = "pressao_arterial", nullable = false)
     private String bloodPressure;
 
-    @PrePersist
-    public void generateRegistrationNumber() {
-        if (this.registrationNumber == null) {
-            this.registrationNumber = generateRandomRegistration();
-        }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    private String generateRandomRegistration() {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 10; i++) {
-            sb.append(random.nextInt(10));
-        }
-        return sb.toString();
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getMedications() {
+        return medications;
+    }
+
+    public void setMedications(String medications) {
+        this.medications = medications;
+    }
+
+    public String getSurgeries() {
+        return surgeries;
+    }
+
+    public void setSurgeries(String surgeries) {
+        this.surgeries = surgeries;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public String getHealthHistory() {
+        return healthHistory;
+    }
+
+    public void setHealthHistory(String healthHistory) {
+        this.healthHistory = healthHistory;
+    }
+
+    public String getBloodPressure() {
+        return bloodPressure;
+    }
+
+    public void setBloodPressure(String bloodPressure) {
+        this.bloodPressure = bloodPressure;
+    }
 }

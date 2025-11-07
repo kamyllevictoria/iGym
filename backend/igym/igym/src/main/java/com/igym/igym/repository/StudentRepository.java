@@ -1,5 +1,6 @@
 package com.igym.igym.repository;
 
+import com.igym.igym.model.Gender;
 import com.igym.igym.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -42,7 +43,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             String bloodPressure,
             String email,
             String phoneNumber,
-            String gender,
+            Gender gender,
             String password
     );
 

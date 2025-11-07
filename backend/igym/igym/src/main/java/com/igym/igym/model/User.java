@@ -85,7 +85,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
