@@ -1,5 +1,6 @@
 package com.igym.igym.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igym.igym.model.Gender;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public record UserDTO(
         String password,
         String phoneNumber,
         Gender gender,
+        @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
         LocalDate birthDate,
         String CPF,
         Integer age

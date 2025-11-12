@@ -6,13 +6,15 @@ import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
 @Table(name = "usuario")
 public class User {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "nome", length = 255, nullable = false)
     private String name;
@@ -31,22 +33,29 @@ public class User {
     @Column(name = "sexo", length = 10, nullable = false)
     private Gender gender;
 
-    @Column(name = "dataNascimento", nullable = false)
+    @Column(name = "datanascimento", nullable = false)
     private LocalDate birthDate;
 
     @CPF
     @Column(name = "cpf", nullable = false, unique = true)
     private String CPF;
 
-    @Column(name = "idade", nullable = false)
+    @Column(name = "idade")
     private Integer age;
 
+    @PrePersist
+    @PreUpdate // Inclua @PreUpdate se o usuário puder atualizar a data de nascimento
+    private void calculateAge() {
+        if (this.birthDate != null) {
+            this.age = Period.between(this.birthDate, LocalDate.now()).getYears();
+        }
+    }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -113,5 +122,8 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public void setStudent(Student student) {
     }
 }

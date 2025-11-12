@@ -27,14 +27,17 @@ public class StudentController implements GenericController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid StudentDTO studentDTO){
-        Student studentEntity = studentMapper.toEntity(studentDTO);
+    public ResponseEntity<Student> save(@RequestBody Student student) {
+        Student savedStudent = studentService.createStudent(student); // AQUI! savedStudent precisa ter o ID
 
-        studentService.createStudent(studentEntity);
-        URI location = generateHeaderLocation(studentEntity.getRegistrationNumber());
+        if (savedStudent.getUser().getId() == null) {
+            // Isso é um problema de persistência que precisa ser investigado no service/model
+            throw new IllegalStateException("Student ID was not generated after saving.");
+        }
 
-        List<StudentDTO> studentResponseDTO = studentMapper.toDTO((List<Student>) studentEntity);
-        return ResponseEntity.created(location).build();
+        URI location = generateHeaderLocation(savedStudent.getUser().getId()); // O generateHeaderLocation precisa receber o ID
+
+        return ResponseEntity.created(location).body(savedStudent);
     }
 
 

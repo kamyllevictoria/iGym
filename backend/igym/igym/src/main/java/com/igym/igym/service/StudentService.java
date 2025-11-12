@@ -1,7 +1,10 @@
 package com.igym.igym.service;
 
+import com.igym.igym.controller.dto.UserDTO;
 import com.igym.igym.controller.mapper.StudentMapper;
+import com.igym.igym.controller.mapper.UserMapper;
 import com.igym.igym.model.Student;
+import com.igym.igym.model.User;
 import com.igym.igym.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +25,14 @@ public class StudentService {
         this.studentMapper = studentMapper;
     }
 
-    //criar aluno
-    public Student createStudent(Student student) {
-        String cpf = student.getUser().getCPF();
-        Optional<Student> existingStudent = studentRepository.findByUser_CPF(cpf);
 
-        if (existingStudent.isPresent()) {
-            throw new IllegalArgumentException("Erro: O CPF " + cpf + " já está cadastrado no sistema.");
-        }
+    public Student createStudent(Student student) {
+        UserDTO userDto = student.getUserDTO();
+
+        User user = UserMapper.toEntity(userDto);
+
+        user.setStudent(student);
+        student.setUser(user);
         return studentRepository.save(student);
     }
 

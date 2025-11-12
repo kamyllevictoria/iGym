@@ -1,5 +1,6 @@
 package com.igym.igym.model;
 
+import com.igym.igym.controller.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +16,7 @@ public class Student{
 
     @Id
     @Column(name = "usuario_id")
-    private Integer id;
+    private Long id;
 
     @MapsId
     @OneToOne
@@ -118,5 +119,9 @@ public class Student{
 
     public void setBloodPressure(String bloodPressure) {
         this.bloodPressure = bloodPressure;
+    }
+
+    public UserDTO getUserDTO() {
+        return null;
     }
 }
