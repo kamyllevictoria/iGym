@@ -6,9 +6,7 @@ import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
-
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuario")
 public class User {
     @Id
@@ -16,31 +14,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", length = 255, nullable = false)
+    @Column(name = "nome", length = 255, nullable = false)
     private String name;
 
     @Email
     @Column(name = "email", length = 200, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 60, nullable = false)
+    @Column(name = "senha", length = 60, nullable = false)
     private String password;
 
-    @Column(name = "phoneNumber", length = 12, nullable = false)
+    @Column(name = "telefone", length = 12, nullable = false)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", length = 10, nullable = false)
+    @Column(name = "sexo", length = 10, nullable = false)
     private Gender gender;
 
-    @Column(name = "birthDate", nullable = false)
+    @Column(name = "dataNascimento", nullable = false)
     private LocalDate birthDate;
 
     @CPF
-    @Column(name = "CPF", nullable = false, unique = true)
+    @Column(name = "cpf", nullable = false, unique = true)
     private String CPF;
 
-    @Column(name = "age", nullable = false)
+    @Column(name = "idade", nullable = false)
     private Integer age;
 
 

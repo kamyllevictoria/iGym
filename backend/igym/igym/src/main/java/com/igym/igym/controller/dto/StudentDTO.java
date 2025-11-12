@@ -10,6 +10,10 @@ import lombok.experimental.SuperBuilder;
 
 
 public record StudentDTO(
+
+        @NotNull
+        Long registrationNumber,
+
         @NotNull
         Double height,
 

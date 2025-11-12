@@ -10,15 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
-@RequestMapping
+@RequestMapping("/api/students")
 @RestController
-public class StudentController {
+public class StudentController implements GenericController {
 
     private StudentService studentService;
     private StudentRepository studentRepository;
     private StudentMapper studentMapper;
-    private GenericController genericController;
 
     public StudentController(StudentService studentService, StudentRepository studentRepository, StudentMapper studentMapper) {
         this.studentService = studentService;
@@ -30,10 +30,10 @@ public class StudentController {
     public ResponseEntity<Void> save(@RequestBody @Valid StudentDTO studentDTO){
         Student studentEntity = studentMapper.toEntity(studentDTO);
 
-        studentService.saveStudent(studentEntity);
-        URI location = genericController.generateHeaderLocation(studentEntity.());
+        studentService.createStudent(studentEntity);
+        URI location = generateHeaderLocation(studentEntity.getRegistrationNumber());
 
-        StudentDTO studentResponseDTO = studentMapper.toDTO(studentEntity);
+        List<StudentDTO> studentResponseDTO = studentMapper.toDTO((List<Student>) studentEntity);
         return ResponseEntity.created(location).build();
     }
 

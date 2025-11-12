@@ -3,7 +3,7 @@ CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(200) NOT NULL UNIQUE,
-    senha VARCHAR(10) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     telefone VARCHAR(11) NOT NULL,
     sexo VARCHAR(10) NOT NULL,
     dataNascimento DATE NOT NULL,
@@ -13,13 +13,13 @@ CREATE TABLE usuario (
 
 
 CREATE TABLE aluno (
-    matricula BIGINT PRIMARY KEY DEFAULT floor(random() * 10000000000)::bigint,
+    matricula BIGINT PRIMARY KEY,
     usuario_id INT NOT NULL UNIQUE,
     altura NUMERIC(5,2) NOT NULL,
     peso NUMERIC(5,2) NOT NULL,
     medicamentos VARCHAR(200),
     cirurgias VARCHAR(200),
-    metodo_pagamento VARCHAR(50) NOT NULL CHECK (metodo_pagamento IN ('CREDITO','DEBITO','PIX','DINHEIRO')),
+    metodo_pagamento VARCHAR(50) NOT NULL CHECK (metodo_pagamento IN ('CREDIT','DEBIT','PIX','CASH')),
     pressao_arterial VARCHAR(3) NOT NULL,
     historico_de_saude VARCHAR(255) NOT NULL,
     ativo BOOLEAN DEFAULT TRUE,

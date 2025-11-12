@@ -5,7 +5,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 public interface GenericController {
-    default URI generateHeaderLocation(String registrationNumber){
+    default URI generateHeaderLocation(Long registrationNumber){
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

@@ -11,10 +11,27 @@ import java.util.Random;
 
 @Entity
 @Table(name = "aluno")
-public class Student extends User {
+public class Student{
 
-    @Column(length = 10, name = "matricula")
-    private String registrationNumber;
+    @Id
+    @Column(name = "usuario_id")
+    private Integer id;
+
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, unique = true)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Column(name = "matricula")
+    private Long registrationNumber;
 
     @Column(name = "altura", nullable = false, length = 100)
     private Double height;
@@ -39,11 +56,11 @@ public class Student extends User {
     private String bloodPressure;
 
 
-    public String getRegistrationNumber() {
+    public Long getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(String registrationNumber) {
+    public void setRegistrationNumber(Long registrationNumber) {
         this.registrationNumber = registrationNumber;
     }
 

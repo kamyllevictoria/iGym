@@ -12,7 +12,7 @@ public record UserDTO(
         String name,
         String email,
         String password,
-        Integer phoneNumber,
+        String phoneNumber,
         Gender gender,
         LocalDate birthDate,
         String CPF,
