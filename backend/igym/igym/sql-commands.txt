@@ -1,45 +1,39 @@
-
 CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
-    email VARCHAR(200) NOT NULL UNIQUE,
-    senha VARCHAR(60) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    senha VARCHAR(60) NOT NULL UNIQUE,
     telefone VARCHAR(11) NOT NULL,
-    sexo VARCHAR(10) NOT NULL,
-    datanascimento DATE NOT NULL,
+    genero VARCHAR(10) NOT NULL CHECK (genero IN ('FEMININO','MASCULINO','OUTROS')),
+    dataNascimento DATE NOT NULL,
     cpf VARCHAR(15) NOT NULL UNIQUE,
     idade INT NOT NULL
 );
 
 
 CREATE TABLE aluno (
-    matricula BIGINT PRIMARY KEY,
-    usuario_id INT NOT NULL UNIQUE,
-    altura NUMERIC(5,2) NOT NULL,
+    matricula SERIAL PRIMARY KEY,
+    altura INT NOT NULL,
     peso NUMERIC(5,2) NOT NULL,
     medicamentos VARCHAR(200),
     cirurgias VARCHAR(200),
-    metodo_pagamento VARCHAR(50) NOT NULL CHECK (metodo_pagamento IN ('CREDIT','DEBIT','PIX','CASH')),
-    pressao_arterial VARCHAR(3) NOT NULL,
-    historico_de_saude VARCHAR(255) NOT NULL,
-    ativo BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
-
+    metodoPagamento VARCHAR(50) NOT NULL CHECK (metodoPagamento IN ('CREDITO','DEBITO','PIX','DINHEIRO')),
+    pressaoArterial VARCHAR(3) NOT NULL,
+    historicoSaude VARCHAR(255) NOT NULL,
+    plano CHECK (metodoPagamento IN ('ATIVO','INATIVO')),
+    FOREIGN KEY (usuarioId) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE professor (
     cref VARCHAR(7) PRIMARY KEY,
-    usuario_id INT NOT NULL UNIQUE,
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
+    FOREIGN KEY (usuarioId) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 
 create table fichaDeTreino(
-	id serial primary key,
-	crefProfessor varchar(7) not null,
-	matriculaAluno bigint not null,
-	dataCriacao date not null,
-	frequenciaSemanal int not null,
+	id SERIAL PRIMARY KEY,
+	dataCriacao DATE NOT NULL,
+	frequenciaSemanal INT NOT NULL,
 	foreign key (crefProfessor) references professor(cref)
 		on delete cascade
 		on update cascade,
@@ -49,24 +43,21 @@ create table fichaDeTreino(
 );
 
 create table exercicios(
-	id serial primary key,
-	fichaDeTreinoId int not null,
-	nome varchar(100) not null,
+	id SERIAL PRIMARY KEY,
+	nome varchar(100) NOT NULL,
 	agrupamentoMuscular varchar(50),
-	series int not null,
-	repeticoes int not null,
-	tempoDeDescanso numeric(3,2),
+	series INT NOT NULL,
+	repeticoes INT NOT NULL,
+	tempoDeDescanso NUMERIC NOT NULL(3,2),
 	foreign key (fichaDeTreinoId) references fichaDeTreino(id)
 		on delete cascade
 		on update cascade
 );
 
-
-SELECT table_name
-FROM information_schema.tables
-WHERE table_schema = 'public'
-AND table_type = 'BASE TABLE'
-ORDER BY table_name;
+create table administrador(
+    email varchar(200) NOT NULL,
+    senha varchar(60) NOT NULL
+)
 
 
 --join professor e usuario
@@ -83,9 +74,3 @@ FROM aluno A
 INNER JOIN usuario U
 ON A.usuarioid = U.id;
 
-
-select * from aluno;
-select * from exercicios;
-select * from fichadetreino;
-select * from professor;
-select * from usuario;

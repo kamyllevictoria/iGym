@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16.3
-    container_name: igym_db
+    container_name: igym
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -27,10 +27,10 @@ services:
       - postgres
     networks:
       - igym-network
+
 networks:
   igym-network:
     driver: bridge
-
 
 volumes:
   pgdata:
