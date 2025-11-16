@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "usuarios")
@@ -15,7 +16,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nome;
 
     @Column(nullable = false)
@@ -25,7 +26,7 @@ public class Usuario implements Serializable {
     private String senha;
 
     @Column(nullable = false)
-    private Integer telefone;
+    private String telefone;
 
     @Column(nullable = false)
     private Genero genero;
@@ -45,7 +46,7 @@ public class Usuario implements Serializable {
     private Aluno aluno;
 
 
-    public Usuario(String nome, String email, String senha, Integer telefone, Genero genero, LocalDate dataNascimento, Integer idade, Aluno aluno) {
+    public Usuario(String nome, String email, String senha, String telefone, Genero genero, LocalDate dataNascimento, Integer idade, Aluno aluno) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -60,9 +61,10 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-
+    @Transient
     public Integer getIdade() {
-        return idade;
+        if (dataNascimento == null) return null;
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 
     public void setIdade(Integer idade) {
@@ -101,11 +103,11 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Integer getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

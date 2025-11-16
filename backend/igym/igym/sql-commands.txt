@@ -10,7 +10,6 @@ CREATE TABLE usuario (
     idade INT NOT NULL
 );
 
-
 CREATE TABLE aluno (
     matricula SERIAL PRIMARY KEY,
     altura INT NOT NULL,
@@ -20,42 +19,47 @@ CREATE TABLE aluno (
     metodoPagamento VARCHAR(50) NOT NULL CHECK (metodoPagamento IN ('CREDITO','DEBITO','PIX','DINHEIRO')),
     pressaoArterial VARCHAR(3) NOT NULL,
     historicoSaude VARCHAR(255) NOT NULL,
-    plano CHECK (metodoPagamento IN ('ATIVO','INATIVO')),
+    statusDoPlano VARCHAR(10) NOT NULL CHECK (statusDoPlano IN ('ATIVO','INATIVO')),
+    tipoDePlano VARCHAR(20) NOT NULL CHECK (tipoDePlano IN ('ANUAL', 'SEMESTRAL', 'MENSAL')),
+    usuarioId INT NOT NULL UNIQUE,
     FOREIGN KEY (usuarioId) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE professor (
     cref VARCHAR(7) PRIMARY KEY,
+    usuarioId INT NOT NULL UNIQUE,
     FOREIGN KEY (usuarioId) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 
-create table fichaDeTreino(
-	id SERIAL PRIMARY KEY,
-	dataCriacao DATE NOT NULL,
-	frequenciaSemanal INT NOT NULL,
-	foreign key (crefProfessor) references professor(cref)
-		on delete cascade
-		on update cascade,
-	foreign key (matriculaAluno) references aluno(matricula)
-		on delete cascade
-		on update cascade
+CREATE TABLE fichaDeTreino(
+    id SERIAL PRIMARY KEY,
+    dataCriacao DATE NOT NULL,
+    frequenciaSemanal INT NOT NULL,
+    crefProfessor VARCHAR(7) NOT NULL,
+    matriculaAluno INT NOT NULL,
+    foreign key (crefProfessor) references professor(cref)
+       on delete cascade
+       on update cascade,
+    foreign key (matriculaAluno) references aluno(matricula)
+       on delete cascade
+       on update cascade
 );
-
-create table exercicios(
-	id SERIAL PRIMARY KEY,
-	nome varchar(100) NOT NULL,
-	agrupamentoMuscular varchar(50),
-	series INT NOT NULL,
-	repeticoes INT NOT NULL,
-	tempoDeDescanso NUMERIC NOT NULL(3,2),
-	foreign key (fichaDeTreinoId) references fichaDeTreino(id)
-		on delete cascade
-		on update cascade
+CREATE TABLE exercicios(
+    id SERIAL PRIMARY KEY,
+    nome varchar(100) NOT NULL,
+    agrupamentoMuscular varchar(50),
+    series INT NOT NULL,
+    repeticoes INT NOT NULL,
+    tempoDeDescanso NUMERIC(3,2) NOT NULL,
+    fichaDeTreinoId INT NOT NULL,
+    foreign key (fichaDeTreinoId) references fichaDeTreino(id)
+       on delete cascade
+       on update cascade
 );
 
 create table administrador(
-    email varchar(200) NOT NULL,
+    email varchar(200) NOT NULL PRIMARY KEY,
     senha varchar(60) NOT NULL
 )
 
