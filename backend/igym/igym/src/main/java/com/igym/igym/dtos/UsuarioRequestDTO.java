@@ -1,40 +1,39 @@
 package com.igym.igym.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.igym.igym.model.Genero;
 import com.igym.igym.model.Usuario;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
 public class UsuarioRequestDTO {
 
-    private Long id;
     private String nome;
+
+    @Email
     private String email;
     private String senha;
     private String telefone;
     private Genero genero;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
-    private Integer idade;
+
+    @CPF
+    private String cpf;
 
     public UsuarioRequestDTO() {
     }
 
     public UsuarioRequestDTO(Usuario usuario) {
-        id = usuario.getId();
         nome = usuario.getNome();
         email = usuario.getEmail();
         telefone = usuario.getTelefone();
         genero = usuario.getGenero();
         this.dataNascimento = usuario.getDataNascimento();
-        idade = usuario.getIdade();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        cpf = usuario.getCpf();
     }
 
     public String getNome() {
@@ -85,12 +84,12 @@ public class UsuarioRequestDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public Integer getIdade() {
-        return idade;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
 

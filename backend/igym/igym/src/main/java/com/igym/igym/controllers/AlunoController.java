@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/alunos")
 public class AlunoController {
 
-    private AlunoRepository alunoRepository;
     private AlunoService alunoService;
 
-
-    public AlunoController(AlunoRepository alunoRepository, AlunoService alunoService) {
-        this.alunoRepository = alunoRepository;
+    public AlunoController(AlunoService alunoService) {
         this.alunoService = alunoService;
     }
 }

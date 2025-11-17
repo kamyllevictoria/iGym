@@ -5,6 +5,7 @@ import com.igym.igym.dtos.UsuarioResponseDTO;
 import com.igym.igym.model.Usuario;
 import com.igym.igym.repositories.UsuarioRepository;
 import com.igym.igym.services.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,28 +17,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    private UsuarioRepository usuarioRepository;
     private UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioRepository usuarioRepository, UsuarioService usuarioService) {
-        this.usuarioRepository = usuarioRepository;
+    public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> insert(@RequestBody UsuarioRequestDTO usuarioRequestDTO){
-        Usuario usuario = new Usuario();
-        usuario.setNome(usuarioRequestDTO.getNome());
-        usuario.setEmail(usuarioRequestDTO.getEmail());
-        usuario.setSenha(usuarioRequestDTO.getSenha());
-        usuario.setTelefone(usuarioRequestDTO.getTelefone());
-        usuario.setGenero(usuarioRequestDTO.getGenero());
-        usuario.setDataNascimento(usuarioRequestDTO.getDataNascimento());
-        Usuario usuarioSalvo = usuarioService.insert(usuario);
-        UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO(usuarioSalvo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioResponseDTO);
+    public ResponseEntity<UsuarioResponseDTO> insert(@Valid @RequestBody UsuarioRequestDTO usuarioRequestDTO){
+        Usuario usuario = usuarioService.insert(usuarioRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new UsuarioResponseDTO((usuario)));
     }
-
 
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> findAll() {
@@ -48,10 +39,17 @@ public class UsuarioController {
         return ResponseEntity.ok(dtoList);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<UsuarioResponseDTO> findById(@PathVariable Long id) {
 
         Usuario requestDTO = usuarioService.findById(id);
+        UsuarioResponseDTO responseDTO = new UsuarioResponseDTO(requestDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<UsuarioResponseDTO> findByCpf(@PathVariable String cpf){
+        Usuario requestDTO = usuarioService.findByCpf(cpf);
         UsuarioResponseDTO responseDTO = new UsuarioResponseDTO(requestDTO);
         return ResponseEntity.ok(responseDTO);
     }

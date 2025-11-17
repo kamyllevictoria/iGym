@@ -8,12 +8,13 @@ import java.time.LocalDate;
 
 public class UsuarioResponseDTO {
 
+    private Long id;
     private String nome;
     private String email;
-    private Long id;
     private String telefone;
     private Genero genero;
     private LocalDate dataNascimento;
+    private String cpf;
     private Integer idade;
 
     public UsuarioResponseDTO() {
@@ -25,6 +26,7 @@ public class UsuarioResponseDTO {
         telefone = usuario.getTelefone();
         genero = usuario.getGenero();
         this.dataNascimento = usuario.getDataNascimento();
+        cpf = usuario.getCpf();
         idade = usuario.getIdade();
     }
 
@@ -85,5 +87,13 @@ public class UsuarioResponseDTO {
 
     public void setIdade(Integer idade) {
         this.idade = idade;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

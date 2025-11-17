@@ -3,6 +3,8 @@ package com.igym.igym.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -35,6 +37,9 @@ public class Usuario implements Serializable {
     private LocalDate dataNascimento;
 
     @Column(nullable = false)
+    private String cpf;
+
+    @Column(nullable = false)
     private Integer idade;
 
     @OneToOne(
@@ -46,7 +51,7 @@ public class Usuario implements Serializable {
     private Aluno aluno;
 
 
-    public Usuario(String nome, String email, String senha, String telefone, Genero genero, LocalDate dataNascimento, Integer idade, Aluno aluno) {
+    public Usuario(String nome, String email, String senha, String telefone, Genero genero, LocalDate dataNascimento, Integer idade, String cpf, Aluno aluno) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -54,7 +59,9 @@ public class Usuario implements Serializable {
         this.genero = genero;
         this.dataNascimento = dataNascimento;
         this.idade = idade;
+        this.cpf = cpf;
         this.aluno = aluno;
+
     }
 
     //construtor vazio
@@ -133,5 +140,13 @@ public class Usuario implements Serializable {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
