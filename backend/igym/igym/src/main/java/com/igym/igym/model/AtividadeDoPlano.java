@@ -1,6 +1,6 @@
 package com.igym.igym.model;
 
-public enum Plano {
+public enum AtividadeDoPlano {
     ATIVO,
     INATIVO
 }

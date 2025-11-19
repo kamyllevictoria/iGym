@@ -1,84 +1,65 @@
 package com.igym.igym.dtos;
 
 import com.igym.igym.model.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.br.CPF;
-
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
-public class AlunoRequestDTO implements Serializable {
+public class AlunoResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    //dados para composicao
-    @NotBlank(message = "O nome é obrigatório")
     private String nome;
-
-    @Email(message = "Email inválido")
-    @NotBlank
     private String email;
-
-    @NotBlank
-    private String senha;
-
-    @NotBlank(message = "O telefone é obrigatório")
     private String telefone;
-
-    @NotNull
     private Genero genero;
-
-    @NotNull(message = "A data de nascimento é obrigatória")
     private LocalDate dataNascimento;
-
-    @CPF(message = "CPF inválido")
     private String cpf;
-
     private Integer idade;
 
 
-    //campos do aluno
-    @NotNull(message = "Altura é obrigatória")
+    private Long matricula;
     private Integer altura;
-
-    @NotNull(message = "Campo peso é obrigatório")
     private Double peso;
-
     private String medicamentos;
-
     private String cirurgias;
-
-    @NotNull(message = "O método de pagamento é obrigatório.")
     private Pagamento pagamento;
-
-    @NotBlank(message = "A pressaoArterial é obrigatória.")
     private String pressaoArterial;
-
-    @NotBlank(message = "O historicoSaude é obrigatório.")
     private String historicoSaude;
-
-    @NotNull(message = "A atividade do plano é obrigatória.")
     private AtividadeDoPlano atividadeDoPlano;
-
-    @NotNull(message = "O tipo do plano é obrigatório.")
     private TipoDePlano tipoDePlano;
+    private Long usuarioId;
 
     private String professorCref;
 
-    public AlunoRequestDTO() {
+
+    public AlunoResponseDTO() {
     }
 
-    public AlunoRequestDTO(Aluno aluno) {
+    public AlunoResponseDTO(Aluno aluno){
+        if (aluno.getUsuario() != null) {
+            this.usuarioId = aluno.getUsuario().getId();
+            this.nome = aluno.getUsuario().getNome();
+            this.email = aluno.getUsuario().getEmail();
+            this.telefone = aluno.getUsuario().getTelefone();
+            this.genero = aluno.getUsuario().getGenero();
+            this.dataNascimento = aluno.getUsuario().getDataNascimento();
+            this.cpf = aluno.getUsuario().getCpf();
+            this.idade = aluno.getUsuario().getIdade();
+
+        }
+
+        if (aluno.getProfessor() != null) {
+           this.professorCref = aluno.getProfessor().getCref();
+        }
+
+        this.matricula = aluno.getMatricula();
         this.altura = aluno.getAltura();
         this.peso = aluno.getPeso();
         this.medicamentos = aluno.getMedicamentos();
         this.cirurgias = aluno.getCirurgias();
         this.pagamento = aluno.getPagamento();
         this.pressaoArterial = aluno.getPressaoArterial();
-        this.historicoSaude =aluno.getHistoricoSaude();
+        this.historicoSaude = aluno.getHistoricoSaude();
         this.atividadeDoPlano = aluno.getAtividadeDoPlano();
         this.tipoDePlano = aluno.getTipoDePlano();
     }
@@ -97,14 +78,6 @@ public class AlunoRequestDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getTelefone() {
@@ -137,6 +110,30 @@ public class AlunoRequestDTO implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public String getProfessorCref() {
+      return professorCref;
+    }
+
+    public void setProfessorCref(String professorCref) {
+       this.professorCref = professorCref;
+    }
+
+    public Long getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Long matricula) {
+        this.matricula = matricula;
     }
 
     public Integer getAltura() {
@@ -211,20 +208,11 @@ public class AlunoRequestDTO implements Serializable {
         this.tipoDePlano = tipoDePlano;
     }
 
-    public String getProfessorCref() {
-        return professorCref;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setProfessorCref(String professorCref) {
-        this.professorCref = professorCref;
-    }
-
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }
-

@@ -8,14 +8,16 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controllers/AlunoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controllers/AlunoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controllers/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controllers/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/UsuarioRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/UsuarioRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/AlunoRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/AlunoRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/ProfessorRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/ProfessorRequestDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/UsuarioResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/dtos/UsuarioResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/exceptions/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/exceptions/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Aluno.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Aluno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Plano.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/AtividadeDoPlano.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Professor.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Professor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/AlunoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/AlunoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/UsuarioRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AlunoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AlunoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,9 +29,9 @@
       <list>
         <option value="Record" />
         <option value="package-info" />
-        <option value="Enum" />
-        <option value="Interface" />
         <option value="Exception" />
+        <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>

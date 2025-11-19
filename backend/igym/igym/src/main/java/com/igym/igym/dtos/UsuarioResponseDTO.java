@@ -27,7 +27,6 @@ public class UsuarioResponseDTO {
         genero = usuario.getGenero();
         this.dataNascimento = usuario.getDataNascimento();
         cpf = usuario.getCpf();
-        idade = usuario.getIdade();
     }
 
     public UsuarioResponseDTO(UsuarioRequestDTO usuarioRequestDTO) {

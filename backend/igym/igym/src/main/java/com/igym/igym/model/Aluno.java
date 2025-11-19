@@ -26,6 +26,7 @@ public class Aluno implements Serializable {
     private String cirurgias;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Pagamento pagamento;
 
     @Column(nullable = false)
@@ -35,15 +36,26 @@ public class Aluno implements Serializable {
     private String historicoSaude;
 
     @Column(nullable = false)
-    private Plano plano;
+    @Enumerated(EnumType.STRING)
+    private AtividadeDoPlano atividadeDoPlano;
+
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoDePlano tipoDePlano;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario", referencedColumnName = "id", nullable = false, unique = true)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "professor_id")
+    @JsonBackReference
+    private Professor professor;
 
-    public Aluno(Integer altura, Double peso, String medicamentos, String cirurgias, Pagamento pagamento, String pressaoArterial, String historicoSaude, Plano plano, Usuario usuario) {
+
+    public Aluno(Integer altura, Double peso, String medicamentos, String cirurgias, Pagamento pagamento, String pressaoArterial, String historicoSaude, AtividadeDoPlano atividadeDoPlano, TipoDePlano tipoDePlano, Usuario usuario) {
         this.altura = altura;
         this.peso = peso;
         this.medicamentos = medicamentos;
@@ -51,11 +63,20 @@ public class Aluno implements Serializable {
         this.pagamento = pagamento;
         this.pressaoArterial = pressaoArterial;
         this.historicoSaude = historicoSaude;
-        this.plano = plano;
+        this.atividadeDoPlano = atividadeDoPlano;
+        this.tipoDePlano = tipoDePlano;
         this.usuario = usuario;
     }
 
     public Aluno() {
+    }
+
+    public Long getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(Long matricula) {
+        this.matricula = matricula;
     }
 
     public Integer getAltura() {
@@ -114,12 +135,20 @@ public class Aluno implements Serializable {
         this.historicoSaude = historicoSaude;
     }
 
-    public Plano getPlano() {
-        return plano;
+    public AtividadeDoPlano getAtividadeDoPlano() {
+        return atividadeDoPlano;
     }
 
-    public void setPlano(Plano plano) {
-        this.plano = plano;
+    public void setAtividadeDoPlano(AtividadeDoPlano atividadeDoPlano) {
+        this.atividadeDoPlano = atividadeDoPlano;
+    }
+
+    public TipoDePlano getTipoDePlano() {
+        return tipoDePlano;
+    }
+
+    public void setTipoDePlano(TipoDePlano tipoDePlano) {
+        this.tipoDePlano = tipoDePlano;
     }
 
     public Usuario getUsuario() {
@@ -128,5 +157,13 @@ public class Aluno implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 }

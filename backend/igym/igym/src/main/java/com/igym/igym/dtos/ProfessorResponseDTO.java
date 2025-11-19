@@ -1,47 +1,51 @@
 package com.igym.igym.dtos;
 
 import com.igym.igym.model.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
-
-public class ProfessorRequestDTO implements Serializable {
+public class ProfessorResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    //campos para composição
-    @NotBlank(message = "O nome é obrigatório")
     private String nome;
-
-    @Email(message = "Email inválido")
-    @NotBlank
     private String email;
-
-    @NotBlank
-    private String senha;
-
-    @NotBlank(message = "O telefone é obrigatório")
     private String telefone;
-
-    @NotNull
     private Genero genero;
-
-    @NotNull(message = "A data de nascimento é obrigatória")
     private LocalDate dataNascimento;
-
-    @CPF(message = "CPF inválido")
     private String cpf;
-
     private Integer idade;
 
-    @NotBlank(message = "O número do cref é obrigatório.")
     private String cref;
+    private Long usuarioId;
 
-    public ProfessorRequestDTO() {
+    public ProfessorResponseDTO() {
+    }
+
+    private List<AlunoSimplificadoDTO> alunoSimplificado;
+
+    public ProfessorResponseDTO(Professor professor) {
+        if(professor.getAlunos() != null){
+            this.usuarioId = professor.getUsuario().getId();
+            this.nome = professor.getUsuario().getNome();
+            this.email = professor.getUsuario().getEmail();
+            this.telefone = professor.getUsuario().getTelefone();
+            this.genero = professor.getUsuario().getGenero();
+            this.dataNascimento = professor.getUsuario().getDataNascimento();
+            this.cpf = professor.getUsuario().getCpf();
+            this.idade = professor.getUsuario().getIdade();
+        }
+
+
+        this.cref = professor.getCref();
+        if(professor.getAlunos() != null){
+            this.alunoSimplificado = professor.getAlunos().stream()
+                    .map(AlunoSimplificadoDTO::new)
+                    .collect(Collectors.toList());
+        }
+
     }
 
     public String getNome() {
@@ -58,14 +62,6 @@ public class ProfessorRequestDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getTelefone() {
@@ -116,5 +112,11 @@ public class ProfessorRequestDTO implements Serializable {
         this.cref = cref;
     }
 
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
 
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 }

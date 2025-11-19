@@ -68,10 +68,8 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    @Transient
     public Integer getIdade() {
-        if (dataNascimento == null) return null;
-        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
+        return idade;
     }
 
     public void setIdade(Integer idade) {

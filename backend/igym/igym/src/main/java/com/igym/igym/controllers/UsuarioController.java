@@ -3,7 +3,6 @@ package com.igym.igym.controllers;
 import com.igym.igym.dtos.UsuarioRequestDTO;
 import com.igym.igym.dtos.UsuarioResponseDTO;
 import com.igym.igym.model.Usuario;
-import com.igym.igym.repositories.UsuarioRepository;
 import com.igym.igym.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
