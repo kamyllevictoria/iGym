@@ -95,21 +95,4 @@ public class UsuarioService {
         }
     }
 
-    public void updateCamposPermitidos(Usuario usuario, UsuarioRequestDTO usuarioRequestDTO){
-        if(usuarioRequestDTO.getEmail() != null){
-            usuario.setEmail(usuarioRequestDTO.getEmail());
-        }
-        if (usuarioRequestDTO.getSenha() != null && !usuarioRequestDTO.getSenha().isBlank()) {
-            usuario.setSenha(usuarioRequestDTO.getSenha());
-        }
-
-        if (usuarioRequestDTO.getTelefone() != null) {
-            usuario.setTelefone(usuarioRequestDTO.getTelefone());
-        }
-
-        if (usuarioRequestDTO.getGenero() != null) {
-            usuario.setGenero(usuarioRequestDTO.getGenero());
-        }
-    }
-
 }

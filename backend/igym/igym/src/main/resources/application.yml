@@ -6,4 +6,9 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: auto
+      ddl-auto: update
+  server:
+    error:
+      include-message: always
+      include-binding-errors: never
+      include-stacktrace: never

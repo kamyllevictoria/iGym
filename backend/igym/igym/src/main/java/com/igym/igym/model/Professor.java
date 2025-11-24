@@ -16,8 +16,8 @@ public class Professor implements Serializable {
     @Column(nullable = false)
     private String cref;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false, unique = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id", unique = true)
     @JsonBackReference
     private Usuario usuario;
 

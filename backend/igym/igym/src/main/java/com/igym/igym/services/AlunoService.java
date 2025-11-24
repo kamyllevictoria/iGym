@@ -2,13 +2,14 @@ package com.igym.igym.services;
 
 
 import com.igym.igym.dtos.AlunoRequestDTO;
-import com.igym.igym.dtos.AlunoUpdateDTO;
+import com.igym.igym.exceptions.AlunoNotFoundException;
 import com.igym.igym.model.Usuario;
 import com.igym.igym.model.Professor;
 
 import com.igym.igym.repositories.AlunoRepository;
 import com.igym.igym.repositories.ProfessorRepository;
 import com.igym.igym.repositories.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import com.igym.igym.model.Aluno;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,12 +38,18 @@ public class AlunoService {
 
     public Aluno findByMatricula(Long matricula){
         return alunoRepository.findByMatricula(matricula)
-                .orElseThrow(() -> new RuntimeException(String.format("Não foi possível encontrar o usuário com a matrícula %s", matricula)));
+                .orElseThrow(() -> new AlunoNotFoundException(String.format("Não foi possível encontrar o usuário com a matrícula %s", matricula)));
     }
 
     public Aluno findByCpf(String cpf){
         return alunoRepository.findByCpf(cpf)
-                .orElseThrow(() -> new RuntimeException(String.format("Não foi possível encontrar o usuário com o cpf %s", cpf)));
+                .orElseThrow(() -> new AlunoNotFoundException(String.format("Não foi possível encontrar o usuário com o cpf %s", cpf)));
+    }
+
+    public Aluno findByUsuarioId(Long usuarioId){
+        return alunoRepository.findByUsuarioId(usuarioId)
+                .orElseThrow(() -> new AlunoNotFoundException(String.format("Não foi possível encontrar o usuário com o id %s", usuarioId)));
+
     }
 
     @Transactional
@@ -55,8 +62,8 @@ public class AlunoService {
 
         //buscar por professor se existir
         Professor professor = null;
-        if(alunoRequestDTO.getProfessorCref() != null && alunoRequestDTO.getProfessorCref().isEmpty()){
-            professor = professorRepository.findById(alunoRequestDTO.getProfessorCref()).orElse(null);
+        if(alunoRequestDTO.getProfessorCref() != null && !alunoRequestDTO.getProfessorCref().isEmpty()){
+            professor = professorRepository.findByCref(alunoRequestDTO.getProfessorCref()).orElse(null);
         }
 
         //criar aluno e veincular ao usuario
@@ -99,6 +106,55 @@ public class AlunoService {
 
     }
 
+
+    @Transactional
+    public Aluno update(Long matricula, AlunoRequestDTO alunoRequestDTO){
+
+        //bucar aluno
+        Aluno alunoExistente = alunoRepository.findByMatricula(matricula)
+                .orElseThrow( ()-> new RuntimeException(String.format("Aluno com a matricula %s não identificado para atualização.", matricula)));
+
+        //atualiza dados do usuario, classe pai
+        Usuario usuarioExistente = alunoExistente.getUsuario();
+        preencherCamposUsuario(usuarioExistente, alunoRequestDTO);
+        usuarioRepository.save(usuarioExistente);
+
+        //atualiza dados do aluno, classe filha
+        preencherCamposAluno(alunoExistente, alunoRequestDTO);
+
+        //atualizar professor se vir na requisição.
+        if(alunoRequestDTO.getProfessorCref() != null && !alunoRequestDTO.getProfessorCref().isEmpty()){
+            Professor professor = professorRepository.findByCref(alunoRequestDTO.getProfessorCref())
+                    .orElseThrow( () -> new RuntimeException(String.format("Professor com CREF %s não encontrado.", alunoRequestDTO.getProfessorCref())));
+
+        alunoExistente.setProfessor(professor);
+        }
+
+        return alunoRepository.save(alunoExistente);
+
+    }
+
+    public void deleteByCpf(String cpf){
+        if(cpf == null || cpf.isBlank()){
+            throw new IllegalArgumentException("Não foi possível deletar um usuário que não possui cadastro no sistema.");
+        }
+
+        Aluno aluno =  alunoRepository.findByCpf(cpf)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Nenhum aluno encontrado com o cpf %s. ", cpf)));
+
+        alunoRepository.delete(aluno);
+    }
+
+    public void deleteByMatricula(Long matricula){
+        if(matricula == null){
+            throw new IllegalArgumentException("Não foi possível deletar um usuário que não possui cadastro no sistema.");
+        }
+
+        Aluno aluno =  alunoRepository.findByMatricula(matricula)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Nenhum aluno encontrado com a matricula: %s. ", matricula)));
+
+        alunoRepository.delete(aluno);
+    }
 
 
 

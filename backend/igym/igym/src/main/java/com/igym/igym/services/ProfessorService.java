@@ -2,8 +2,10 @@ package com.igym.igym.services;
 
 
 import com.igym.igym.dtos.ProfessorRequestDTO;
+import com.igym.igym.model.Aluno;
 import com.igym.igym.model.Professor;
 import com.igym.igym.model.Usuario;
+import com.igym.igym.repositories.AlunoRepository;
 import com.igym.igym.repositories.ProfessorRepository;
 import com.igym.igym.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -18,21 +21,29 @@ public class ProfessorService {
 
     private ProfessorRepository professorRepository;
     private UsuarioRepository usuarioRepository;
+    private AlunoRepository alunoRepository;
 
-
-    public ProfessorService(ProfessorRepository professorRepository, UsuarioRepository usuarioRepository) {
+    public ProfessorService(ProfessorRepository professorRepository, UsuarioRepository usuarioRepository, AlunoRepository alunoRepository) {
         this.professorRepository = professorRepository;
         this.usuarioRepository = usuarioRepository;
+        this.alunoRepository = alunoRepository;
     }
 
     public List<Professor> findAll(){
         return professorRepository.findAll();
     }
 
-    public Professor findByCref(String cref){
-        return professorRepository.findByCref(cref)
-                .orElseThrow(() -> new RuntimeException(String.format("Professor não existente com o cref: %s", cref)));
+    public Professor getProfessorByCref(String cref) {
+        return professorRepository.findById(cref)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado com CREF: " + cref));
     }
+
+    public List<Aluno> listAlunos(String cref){
+        Professor professor = professorRepository.findByCref(cref)
+                .orElseThrow(() -> new RuntimeException(String.format("Professor não encontrado com o cref %s. ", cref)));
+        return alunoRepository.findByProfessorCref(professor.getCref());
+    }
+
 
     @Transactional
     public Professor insert(ProfessorRequestDTO professorRequestDTO){
@@ -67,4 +78,23 @@ public class ProfessorService {
         }
 
     }
+
+    public Professor update(String cref, ProfessorRequestDTO professorRequestDTO) {
+        Professor professor = getProfessorByCref(cref);
+        Usuario usuario = professor.getUsuario();
+        preencherCamposProfessor(usuario, professorRequestDTO);
+
+        usuarioRepository.save(usuario);
+        return professor;
+    }
+
+    @Transactional
+    public void delete(String cref) {
+        Professor professor = professorRepository.findById(cref)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+        professorRepository.delete(professor);
+    }
+
+
+
 }

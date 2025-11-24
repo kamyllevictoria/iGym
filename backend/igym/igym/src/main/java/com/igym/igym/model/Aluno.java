@@ -44,7 +44,7 @@ public class Aluno implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoDePlano tipoDePlano;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Usuario usuario;
