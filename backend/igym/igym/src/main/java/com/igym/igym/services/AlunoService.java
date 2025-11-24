@@ -10,12 +10,15 @@ import com.igym.igym.repositories.AlunoRepository;
 import com.igym.igym.repositories.ProfessorRepository;
 import com.igym.igym.repositories.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.igym.igym.model.Aluno;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 
 @Service
@@ -24,6 +27,9 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
     private ProfessorRepository professorRepository;
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public AlunoService(AlunoRepository alunoRepository, ProfessorRepository professorRepository, UsuarioRepository usuarioRepository) {
@@ -54,9 +60,12 @@ public class AlunoService {
 
     @Transactional
     public Aluno insert(AlunoRequestDTO alunoRequestDTO){
+
         //criar e salvar usuario
         Usuario usuario = new Usuario();
+
         preencherCamposUsuario(usuario, alunoRequestDTO);
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario = usuarioRepository.save(usuario);
 
 
@@ -73,7 +82,6 @@ public class AlunoService {
         aluno.setUsuario(usuario);
         aluno.setProfessor(professor);
         return alunoRepository.save(aluno);
-
     }
 
     private void preencherCamposUsuario(Usuario usuario, AlunoRequestDTO dto) {

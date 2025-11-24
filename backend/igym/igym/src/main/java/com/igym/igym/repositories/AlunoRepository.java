@@ -19,7 +19,9 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long>{
 
     Optional<Aluno> findByUsuarioId(Long usuarioId);
 
+    boolean existsByMatricula(Long matricula);
 
-      List<Aluno> findByProfessorCref(String cref);
+
+    List<Aluno> findByProfessorCref(String cref);
 
 }

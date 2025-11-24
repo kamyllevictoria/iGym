@@ -30,6 +30,7 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Genero genero;
 

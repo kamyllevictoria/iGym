@@ -8,6 +8,8 @@ import com.igym.igym.model.Usuario;
 import com.igym.igym.repositories.AlunoRepository;
 import com.igym.igym.repositories.ProfessorRepository;
 import com.igym.igym.repositories.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ public class ProfessorService {
     private ProfessorRepository professorRepository;
     private UsuarioRepository usuarioRepository;
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ProfessorService(ProfessorRepository professorRepository, UsuarioRepository usuarioRepository, AlunoRepository alunoRepository) {
         this.professorRepository = professorRepository;
@@ -49,7 +54,7 @@ public class ProfessorService {
     public Professor insert(ProfessorRequestDTO professorRequestDTO){
         Usuario usuario = new Usuario();
         preencherCamposProfessor(usuario, professorRequestDTO);
-
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario = usuarioRepository.save(usuario);
 
         Professor professor = new Professor();
