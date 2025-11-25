@@ -9,4 +9,5 @@ public interface ProfessorRepository extends JpaRepository<Professor, String> {
 
     Optional<Professor> findByCref(String cref);
 
+    String cref(String cref);
 }
