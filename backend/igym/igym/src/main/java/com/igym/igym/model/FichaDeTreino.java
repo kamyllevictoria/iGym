@@ -19,12 +19,12 @@ public class FichaDeTreino {
     private String frequenciaSemanal;
 
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "aluno_id", nullable = false)
     private Aluno aluno;
 
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "professor_cref", nullable = false)
     private Professor professor;
 

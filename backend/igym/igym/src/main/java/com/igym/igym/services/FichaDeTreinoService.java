@@ -2,6 +2,7 @@ package com.igym.igym.services;
 
 import com.igym.igym.dtos.ExercicioFichaRequestDTO;
 import com.igym.igym.dtos.FichaDeTreinoRequestDTO;
+import com.igym.igym.dtos.FichaDeTreinoUpdateDTO;
 import com.igym.igym.model.Aluno;
 import com.igym.igym.model.ExercicioFicha;
 import com.igym.igym.model.FichaDeTreino;
@@ -59,5 +60,34 @@ public class FichaDeTreinoService {
 
     public List<FichaDeTreino> findAll() {
         return fichaRepository.findAll();
+    }
+
+    public FichaDeTreino findById(Long id) {
+        return fichaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ficha de Treino não encontrada com ID: " + id));
+    }
+
+    public FichaDeTreino update(Long id, FichaDeTreinoUpdateDTO dto) {
+        FichaDeTreino ficha = fichaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ficha de Treino não encontrada com ID: " + id));
+        ficha.setFrequenciaSemanal(dto.getFrequenciaSemanal());
+
+        List<ExercicioFicha> novosExercicios = toExercicioFichaList(dto.getListaDeExercicios());
+        ficha.setListaDeExercicios(novosExercicios);
+
+        return fichaRepository.save(ficha);
+    }
+
+    public void delete(Long id) {
+        FichaDeTreino ficha = fichaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ficha de Treino não encontrada com ID: " + id));
+
+        fichaRepository.delete(ficha);
+    }
+
+    public List<FichaDeTreino> findByAlunoMatricula(Long alunoId) {
+        alunoRepository.findById(alunoId)
+                .orElseThrow(() -> new RuntimeException("Aluno não encontrado com ID: " + alunoId));
+        return fichaRepository.findByAlunoMatricula(alunoId);
     }
 }
