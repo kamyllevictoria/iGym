@@ -1,18 +1,17 @@
 package com.igym.igym.model;
-
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import org.hibernate.validator.constraints.br.CPF;
-
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+     @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -51,6 +50,9 @@ public class Usuario implements Serializable {
     @JsonManagedReference
     private Aluno aluno;
 
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Usuario(String nome, String email, String senha, String telefone, Genero genero, LocalDate dataNascimento, Integer idade, String cpf, Aluno aluno) {
         this.nome = nome;
@@ -147,5 +149,40 @@ public class Usuario implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

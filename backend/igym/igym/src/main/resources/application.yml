@@ -1,12 +1,15 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/igym
+    url: jdbc:postgresql://localhost:5433/igym_db
     username: postgres
     password: postgres
+
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
   server:
     error:
       include-message: always

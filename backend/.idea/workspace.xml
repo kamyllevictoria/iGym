@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f93356fe-036b-4a57-80cf-3d3b1866b838" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/config/SecurityConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/AlunoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/AlunoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AlunoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AlunoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/ProfessorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/ProfessorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +25,9 @@
       <list>
         <option value="Record" />
         <option value="package-info" />
-        <option value="Enum" />
         <option value="Exception" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -48,6 +51,7 @@
     &quot;Application.IgymApplication.executor&quot;: &quot;Run&quot;,
     &quot;Application.Test.executor&quot;: &quot;Run&quot;,
     &quot;Application.com.igym.igym.IgymApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.igym.pgadmin: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.igym: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Maven.igym [clean,install].executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
@@ -57,7 +61,7 @@
     &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sharm/igym-system/backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sharm/OneDrive/Desktop/igym/igym-system/backend&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -111,10 +115,24 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="igym.pgadmin: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="pgadmin" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="igym/igym/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.com.igym.igym.IgymApplication" />
         <item itemvalue="Docker.igym: Compose Deployment" />
+        <item itemvalue="Docker.igym.pgadmin: Compose Deployment" />
         <item itemvalue="Application.IgymApplication" />
         <item itemvalue="Application.Test" />
       </list>
