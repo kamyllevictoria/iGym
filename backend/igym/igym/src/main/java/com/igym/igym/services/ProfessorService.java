@@ -4,6 +4,7 @@ package com.igym.igym.services;
 import com.igym.igym.dtos.ProfessorRequestDTO;
 import com.igym.igym.model.Aluno;
 import com.igym.igym.model.Professor;
+import com.igym.igym.model.Role;
 import com.igym.igym.model.Usuario;
 import com.igym.igym.repositories.AlunoRepository;
 import com.igym.igym.repositories.ProfessorRepository;
@@ -55,6 +56,10 @@ public class ProfessorService {
         Usuario usuario = new Usuario();
         preencherCamposProfessor(usuario, professorRequestDTO);
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setRole(Role.ROLE_PROFESSOR);
+
         usuario = usuarioRepository.save(usuario);
 
         Professor professor = new Professor();

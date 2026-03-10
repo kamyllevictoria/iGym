@@ -3,6 +3,7 @@ package com.igym.igym.services;
 
 import com.igym.igym.dtos.AlunoRequestDTO;
 import com.igym.igym.exceptions.AlunoNotFoundException;
+import com.igym.igym.model.Role;
 import com.igym.igym.model.Usuario;
 import com.igym.igym.model.Professor;
 
@@ -65,6 +66,10 @@ public class AlunoService {
         Usuario usuario = new Usuario();
 
         preencherCamposUsuario(usuario, alunoRequestDTO);
+
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setRole(Role.ROLE_ALUNO);
+
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario = usuarioRepository.save(usuario);
 

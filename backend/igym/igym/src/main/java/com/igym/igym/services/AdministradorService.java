@@ -1,6 +1,7 @@
 package com.igym.igym.services;
 
 import com.igym.igym.model.Administrador;
+import com.igym.igym.model.Role;
 import com.igym.igym.repositories.AdministradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,8 @@ public class AdministradorService {
         }
 
         administrador.setSenha(passwordEncoder.encode(administrador.getSenha()));
+        administrador.setRole(Role.ROLE_ADMINISTRADOR);
+
 
         return administradorRepository.save(administrador);
     }
