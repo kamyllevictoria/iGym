@@ -20,7 +20,7 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false)
     private String nome;
 
-     @Column(nullable = false)
+     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -50,6 +50,8 @@ public class Usuario implements Serializable, UserDetails {
     @JsonManagedReference
     private Aluno aluno;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Professor professor;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -183,6 +185,6 @@ public class Usuario implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
