@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f93356fe-036b-4a57-80cf-3d3b1866b838" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/config/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/config/JwtService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
