@@ -4,6 +4,7 @@ import com.igym.igym.dtos.UsuarioRequestDTO;
 import com.igym.igym.model.Usuario;
 import com.igym.igym.repositories.UsuarioRepository;
 import com.igym.igym.services.validators.UsuarioValidator;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,10 +15,13 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
+    private PasswordEncoder passwordEncoder;
     private UsuarioRepository usuarioRepository;
     private UsuarioValidator usuarioValidator;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioValidator usuarioValidator) {
+
+    public UsuarioService(PasswordEncoder passwordEncoder, UsuarioRepository usuarioRepository, UsuarioValidator usuarioValidator) {
+        this.passwordEncoder = passwordEncoder;
         this.usuarioRepository = usuarioRepository;
         this.usuarioValidator = usuarioValidator;
     }
@@ -47,6 +51,8 @@ public class UsuarioService {
         }
 
         usuarioValidator.validarCriacao(usuario);
+        usuario.setSenha(passwordEncoder.encode(usuarioRequestDTO.getSenha()));
+
         return usuarioRepository.save(usuario);
     }
 
@@ -58,6 +64,10 @@ public class UsuarioService {
         Usuario usuario = findById(id);
 
         preencherCampos(usuario, usuarioRequestDTO);
+
+        if (usuarioRequestDTO.getSenha() != null) {
+            usuario.setSenha(passwordEncoder.encode(usuarioRequestDTO.getSenha()));
+        }
 
         if (usuario.getDataNascimento() != null) {
             usuario.setIdade(calcularIdade(usuario.getDataNascimento()));
@@ -77,9 +87,6 @@ public class UsuarioService {
         }
         if (dto.getEmail() != null) {
             usuario.setEmail(dto.getEmail());
-        }
-        if (dto.getSenha() != null) {
-            usuario.setSenha(dto.getSenha());
         }
         if (dto.getTelefone() != null) {
             usuario.setTelefone(dto.getTelefone());

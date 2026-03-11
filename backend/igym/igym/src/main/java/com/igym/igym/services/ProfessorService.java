@@ -25,14 +25,13 @@ public class ProfessorService {
     private ProfessorRepository professorRepository;
     private UsuarioRepository usuarioRepository;
     private AlunoRepository alunoRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ProfessorService(ProfessorRepository professorRepository, UsuarioRepository usuarioRepository, AlunoRepository alunoRepository) {
+    public ProfessorService(ProfessorRepository professorRepository, UsuarioRepository usuarioRepository, AlunoRepository alunoRepository, PasswordEncoder passwordEncoder) {
         this.professorRepository = professorRepository;
         this.usuarioRepository = usuarioRepository;
         this.alunoRepository = alunoRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Professor> findAll(){
@@ -55,9 +54,7 @@ public class ProfessorService {
     public Professor insert(ProfessorRequestDTO professorRequestDTO){
         Usuario usuario = new Usuario();
         preencherCamposProfessor(usuario, professorRequestDTO);
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setSenha(passwordEncoder.encode(professorRequestDTO.getSenha()));
         usuario.setRole(Role.ROLE_PROFESSOR);
 
         usuario = usuarioRepository.save(usuario);
@@ -74,7 +71,6 @@ public class ProfessorService {
     public void preencherCamposProfessor(Usuario usuario, ProfessorRequestDTO dto){
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
         usuario.setCpf(dto.getCpf());
         usuario.setTelefone(dto.getTelefone());
         usuario.setDataNascimento(dto.getDataNascimento());
@@ -93,6 +89,10 @@ public class ProfessorService {
         Professor professor = getProfessorByCref(cref);
         Usuario usuario = professor.getUsuario();
         preencherCamposProfessor(usuario, professorRequestDTO);
+
+        if (professorRequestDTO.getSenha() != null) {
+            usuario.setSenha(passwordEncoder.encode(professorRequestDTO.getSenha()));
+        }
 
         usuarioRepository.save(usuario);
         return professor;

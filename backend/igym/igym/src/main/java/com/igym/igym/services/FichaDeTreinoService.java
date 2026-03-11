@@ -11,6 +11,8 @@ import com.igym.igym.repositories.AlunoRepository;
 import com.igym.igym.repositories.FichaDeTreinoRepository;
 import com.igym.igym.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,11 +69,16 @@ public class FichaDeTreinoService {
                 .orElseThrow(() -> new RuntimeException("Ficha de Treino não encontrada com ID: " + id));
     }
 
-    public FichaDeTreino update(Long id, FichaDeTreinoUpdateDTO dto) {
+    public FichaDeTreino update(Long id, FichaDeTreinoUpdateDTO dto, Authentication authentication) {
         FichaDeTreino ficha = fichaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ficha de Treino não encontrada com ID: " + id));
-        ficha.setFrequenciaSemanal(dto.getFrequenciaSemanal());
 
+        String emailLogado = authentication.getName();
+        if(!ficha.getProfessor().getUsuario().getEmail().equals(emailLogado)){
+            throw new AccessDeniedException("Você não tem permissão para editar esta ficha.");
+        }
+
+        ficha.setFrequenciaSemanal(dto.getFrequenciaSemanal());
         List<ExercicioFicha> novosExercicios = toExercicioFichaList(dto.getListaDeExercicios());
         ficha.setListaDeExercicios(novosExercicios);
 

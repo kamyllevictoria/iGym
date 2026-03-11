@@ -28,15 +28,13 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
     private ProfessorRepository professorRepository;
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    public AlunoService(AlunoRepository alunoRepository, ProfessorRepository professorRepository, UsuarioRepository usuarioRepository) {
+    public AlunoService(AlunoRepository alunoRepository, ProfessorRepository professorRepository, UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.alunoRepository = alunoRepository;
         this.professorRepository = professorRepository;
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Aluno> findAll(){
@@ -67,10 +65,8 @@ public class AlunoService {
 
         preencherCamposUsuario(usuario, alunoRequestDTO);
 
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setSenha(passwordEncoder.encode(alunoRequestDTO.getSenha()));
         usuario.setRole(Role.ROLE_ALUNO);
-
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario = usuarioRepository.save(usuario);
 
 
@@ -92,7 +88,6 @@ public class AlunoService {
     private void preencherCamposUsuario(Usuario usuario, AlunoRequestDTO dto) {
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
         usuario.setCpf(dto.getCpf());
         usuario.setTelefone(dto.getTelefone());
         usuario.setDataNascimento(dto.getDataNascimento());

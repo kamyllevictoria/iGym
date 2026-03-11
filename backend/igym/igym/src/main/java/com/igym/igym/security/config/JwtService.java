@@ -1,4 +1,4 @@
-package com.igym.igym.config;
+package com.igym.igym.security.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -33,8 +33,8 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis())) //quando a informacao foi gerada
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) //ate quando o token sera valido
-                .signWith(SignatureAlgorithm.ES256, getSignInKey())
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) //ate quando o token sera valido
+                .signWith(getSignInKey(), SignatureAlgorithm.ES256)
                 .compact();
     }
 

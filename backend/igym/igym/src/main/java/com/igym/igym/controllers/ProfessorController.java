@@ -9,6 +9,7 @@ import com.igym.igym.services.ProfessorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,18 +26,21 @@ public class ProfessorController {
         this.alunoService = alunoService;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @PostMapping
     public ResponseEntity<ProfessorResponseDTO> insert(@Valid @RequestBody ProfessorRequestDTO professorRequestDTO){
         Professor professor = professorService.insert(professorRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ProfessorResponseDTO((professor)));
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRADOR', 'ROLE_PROFESSOR')")
     @GetMapping("/alunos/{cref}")
     public ResponseEntity<List<Aluno>> getAlunos(@PathVariable String cref) {
         List<Aluno> alunos = professorService.listAlunos(cref);
         return ResponseEntity.ok(alunos);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRADOR', 'ROLE_PROFESSOR')")
     @GetMapping
     public ResponseEntity<List<ProfessorResponseDTO>> getProfessores() {
         List<Professor> professores = professorService.findAll();
@@ -46,12 +50,14 @@ public class ProfessorController {
         return ResponseEntity.ok(dtos);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMINISTRADOR', 'ROLE_PROFESSOR')")
     @GetMapping("/{cref}")
     public ResponseEntity<Professor> getProfessor(@PathVariable String cref) {
         Professor professor = professorService.getProfessorByCref(cref);
         return ResponseEntity.ok(professor);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @PutMapping("/{cref}")
     public ResponseEntity<ProfessorResponseDTO> update(@PathVariable String cref,
                                                        @Valid @RequestBody ProfessorRequestDTO professorRequestDTO) {
@@ -59,6 +65,7 @@ public class ProfessorController {
         return ResponseEntity.ok(new ProfessorResponseDTO(professorAtualizado));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @DeleteMapping("/{cref}")
     public ResponseEntity<Void> delete(@PathVariable String cref) {
         professorService.delete(cref);

@@ -7,6 +7,7 @@ import com.igym.igym.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> insert(@Valid @RequestBody UsuarioRequestDTO usuarioRequestDTO){
         Usuario usuario = usuarioService.insert(usuarioRequestDTO);
@@ -29,6 +31,7 @@ public class UsuarioController {
                 .body(new UsuarioResponseDTO((usuario)));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> findAll() {
         List<UsuarioResponseDTO> dtoList = usuarioService.findAll()
@@ -37,7 +40,7 @@ public class UsuarioController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtoList);
     }
-
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @GetMapping("/id/{id}")
     public ResponseEntity<UsuarioResponseDTO> findById(@PathVariable Long id) {
 
@@ -46,6 +49,7 @@ public class UsuarioController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<UsuarioResponseDTO> findByCpf(@PathVariable String cpf){
         Usuario requestDTO = usuarioService.findByCpf(cpf);
@@ -53,12 +57,14 @@ public class UsuarioController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponseDTO> update(@PathVariable Long id, @RequestBody UsuarioRequestDTO usuarioRequestDTO) {
         Usuario usuarioAtualizado = usuarioService.update(id, usuarioRequestDTO);
         return ResponseEntity.ok(new UsuarioResponseDTO(usuarioAtualizado));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         usuarioService.delete(id);
