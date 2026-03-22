@@ -10,8 +10,19 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-  server:
-    error:
-      include-message: always
-      include-binding-errors: never
-      include-stacktrace: never
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: f90ad10fe7c397
+    password: sua_senha_completa
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+server:
+  error:
+    include-message: always
+    include-binding-errors: never
+    include-stacktrace: never
