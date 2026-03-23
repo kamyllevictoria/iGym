@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
+
 public class Usuario implements Serializable, UserDetails {
 
     @Id
@@ -26,20 +27,20 @@ public class Usuario implements Serializable, UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @Column(nullable = false)
+    @Column
     private String telefone;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column
     private Genero genero;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate dataNascimento;
 
-    @Column(nullable = false)
+    @Column
     private String cpf;
 
-    @Column(nullable = false)
+    @Column
     private Integer idade;
 
     @OneToOne(
@@ -152,6 +153,7 @@ public class Usuario implements Serializable, UserDetails {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
 
 
     public Role getRole() {

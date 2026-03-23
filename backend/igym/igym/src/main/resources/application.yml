@@ -9,18 +9,29 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
 
   mail:
     host: sandbox.smtp.mailtrap.io
     port: 2525
     username: f90ad10fe7c397
-    password: sua_senha_completa
+    password: c634e2cd7ace15
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+
+  springdoc:
+    api-docs:
+      path: /v3/api-docs
+    swagger-ui:
+      path: /swagger-ui.html
+      disable-swagger-default-url: true
+
 server:
   error:
     include-message: always

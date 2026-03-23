@@ -52,6 +52,11 @@ public class ProfessorService {
 
     @Transactional
     public Professor insert(ProfessorRequestDTO professorRequestDTO){
+
+        if(usuarioRepository.findByEmail(professorRequestDTO.getEmail()).isPresent()){
+            throw new RuntimeException("Email já cadastrado: " + professorRequestDTO.getEmail());
+        }
+
         Usuario usuario = new Usuario();
         preencherCamposProfessor(usuario, professorRequestDTO);
         usuario.setSenha(passwordEncoder.encode(professorRequestDTO.getSenha()));

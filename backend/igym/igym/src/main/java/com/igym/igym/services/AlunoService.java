@@ -60,6 +60,9 @@ public class AlunoService {
     @Transactional
     public Aluno insert(AlunoRequestDTO alunoRequestDTO){
 
+        if(usuarioRepository.findByEmail(alunoRequestDTO.getEmail()).isPresent()){
+            throw new RuntimeException("Email já cadastrado: " + alunoRequestDTO.getEmail());
+        }
         //criar e salvar usuario
         Usuario usuario = new Usuario();
 
