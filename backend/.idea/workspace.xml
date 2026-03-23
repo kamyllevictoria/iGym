@@ -6,19 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f93356fe-036b-4a57-80cf-3d3b1866b838" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/controllers/AdministradorController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Administrador.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/model/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/repositories/AdministradorRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/security/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/security/config/ApplicationConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/security/config/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/security/config/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/security/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/security/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AdministradorService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AlunoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AlunoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/ProfessorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/ProfessorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/java/com/igym/igym/services/AuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/igym/igym/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,6 +85,16 @@
       </method>
     </configuration>
     <configuration name="com.igym.igym.IgymApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="DB_URL" value="jdbc:postgresql://localhost:5433/igym_db" />
+        <env name="DB_USERNAME        " value="postgres" />
+        <env name="DB_PASSWORD        " value="postgres" />
+        <env name="MAIL_HOST          " value="sandbox.smtp.mailtrap.io" />
+        <env name="MAIL_PORT          " value="2525" />
+        <env name="MAIL_USERNAME      " value="f90ad10fe7c397" />
+        <env name="MAIL_PASSWORD      " value="c634e2cd7ace15" />
+        <env name="JWT_SECRET         " value="ef673e25aeda5c8694f90aeca57dd796465b592a190f6ed320b05ec740f6378c" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="com.igym.igym.IgymApplication" />
       <module name="igym" />
       <extension name="coverage">
@@ -134,6 +134,13 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.com.igym.igym.IgymApplication" />
+      <item itemvalue="Application.IgymApplication" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Docker.igym.pgadmin: Compose Deployment" />
+      <item itemvalue="Docker.igym: Compose Deployment" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.com.igym.igym.IgymApplication" />

@@ -25,9 +25,6 @@ public class AuthService {
         );
         UserDetails  userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
 
-
-        System.out.println("Authorities: " + userDetails.getAuthorities());
-
         String token = jwtService.generateTokenFromUserDetails(userDetails);
         return new LoginResponseDTO(token);
     }
